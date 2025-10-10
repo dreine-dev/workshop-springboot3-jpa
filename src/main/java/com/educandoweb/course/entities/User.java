@@ -1,11 +1,20 @@
 package com.educandoweb.course.entities;
 
 import java.io.Serializable;
-import java.util.Objects;
 
-public class User implements Serializable{
-private static final long serialVersionUID = 1L;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "tb_user")
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String email;
@@ -13,7 +22,6 @@ private static final long serialVersionUID = 1L;
 	private String password;
 
 	public User() {
-
 	}
 
 	public User(Long id, String name, String email, String phone, String password) {
@@ -53,7 +61,7 @@ private static final long serialVersionUID = 1L;
 		return phone;
 	}
 
-	public void setPhone() {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
@@ -67,7 +75,10 @@ private static final long serialVersionUID = 1L;
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, id, name, password, phone);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
 	@Override
@@ -79,11 +90,11 @@ private static final long serialVersionUID = 1L;
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(email, other.email) && Objects.equals(id, other.id) && Objects.equals(name, other.name)
-				&& Objects.equals(password, other.password) && Objects.equals(phone, other.phone);
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
-
-	
-	
-	
 }
