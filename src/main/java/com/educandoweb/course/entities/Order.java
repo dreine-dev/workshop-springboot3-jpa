@@ -33,6 +33,8 @@ public class Order implements Serializable {
 	@JoinColumn(name = "client_id")
 	private User client;
 
+	
+
 	public Order() {
 
 	}
@@ -66,8 +68,8 @@ public class Order implements Serializable {
 	}
 
 	public void setOrderStatus(OrderStatus orderStatus) {
-		if(orderStatus != null) {
-		this.orderStatus = orderStatus.getCode();
+		if (orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();
 		}
 	}
 
@@ -75,6 +77,11 @@ public class Order implements Serializable {
 		return client;
 	}
 
+	public void setClient(User client) {
+		this.client = client;
+	}
+
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -90,10 +97,6 @@ public class Order implements Serializable {
 			return false;
 		Order other = (Order) obj;
 		return Objects.equals(id, other.id);
-	}
-
-	public void setClient(User client) {
-		this.client = client;
 	}
 
 }
